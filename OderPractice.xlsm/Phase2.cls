@@ -19,8 +19,9 @@ Public Sub IPhase_ExecutePhase()
     Dim record As SalesData
     Set record = Main.GetIndicator.GetRecord
     
-    record.SetSales (Main.GetCabinet.SellItems)
+   
     record.SetSalesPrice (Main.GetCabinet.CountSalesPrice)
+    record.SetSales (Main.GetCabinet.SellItems)
     record.SetStock (record.GetStock - record.GetSales)
     
     If (record.GetStock <= 0) Then

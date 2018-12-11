@@ -19,6 +19,7 @@ Public Sub IPhase_ExecutePhase()
     If (IsOder) Then
         Oder
         Main.GetIndicator.MoveOn
+        Scroll
     End If
        
 End Sub
@@ -51,4 +52,13 @@ Private Sub Oder()
         Main.GetIndicator.UpdateRecord oder_:=ws.Cells(20, 4)
         Message.WriteLine GetIndicator.GetRecord.GetOder & Strings.str_FinishOder, 4
         
+End Sub
+Private Sub Scroll()
+    Dim ws As Worksheet
+    Set ws = Worksheets("main")
+    Dim i As Integer
+    For i = 21 To 6 Step -3
+        Range(Cells(2, i), Cells(8, i + 2)).Copy Cells(2, i + 3)
+        Range(Cells(15, i), Cells(100, i + 2)).Copy Cells(15, i + 3)
+    Next i
 End Sub

@@ -42,7 +42,7 @@ Public Function SellItems() As Integer
 
     Dim i As Integer
     Dim item_ As Item
-    For i = DecideSales To 1 Step -1
+    For i = m_salesNum To 1 Step -1
         Set item_ = m_items.Item(i)
         m_items.Remove (i)
         SellItems = SellItems + 1
@@ -56,7 +56,7 @@ Public Function CountSalesPrice() As Integer
 
     Dim i As Integer
     Dim item_ As Item
-    For i = m_salesNum To 1 Step -1
+    For i = DecideSales To 1 Step -1
         Set item_ = m_items.Item(i)
         CountSalesPrice = CountSalesPrice + item_.GetPrice '”Ì”„‹àŠz‚ð‰ÁŽZ
     Next i
