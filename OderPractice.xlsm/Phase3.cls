@@ -23,6 +23,7 @@ Public Sub IPhase_ExecutePhase()
     Set ws = Worksheets("main")
     
     record.SetLoss (Main.GetCabinet.DiscardItems)
+    Main.GetIndicator.UpdateRecord loss_:=record.GetLoss
     
     record.SetStock (record.GetStock - record.GetLoss)
     If (record.GetStock < 0) Then
@@ -30,7 +31,11 @@ Public Sub IPhase_ExecutePhase()
     End If
     
     ws.Cells(MAIN_ROW.loss, MAIN_COLUMN.Number) = record.GetLoss
-    ws.Cells(MAIN_ROW.CURRENT_STOCK, MAIN_COLUMN.Number) = record.GetStock
+    ws.Cells(MAIN_ROW.loss, MAIN_COLUMN.Price) = record.GetLoss * -100
+    
+    'ws.Cells(MAIN_ROW.CURRENT_STOCK, MAIN_COLUMN.Number) = record.GetStock
+    
+    '‚±‚±‚É’lˆø‚«Œã‚ÌÝŒÉ‹àŠz‚ð‘‚­B³’lÝŒÉ{’lˆø‚«ÝŒÉ
     
      Message.WriteLine Strings.str_PleaseTheOder, 4
 End Sub

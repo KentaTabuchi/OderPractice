@@ -19,11 +19,6 @@ Public Sub OnAdvanceTheTimeButtonClick()
     ExecutePhase (m_currentPhase)
 
 End Sub
-'未完成メソッド。これはよく戻す順番考えないとバグの温床になりそう。
-Public Sub OnTurnBackTheButtonClick()
-    m_indicator.TurnBack
-
-End Sub
 
 Public Sub ExecutePhase(phase_ As PhaseNumber)
     m_phases(phase_).ExecutePhase
@@ -49,10 +44,10 @@ Private Sub Initialize()
     ws.Cells(MAIN_ROW.DELIVERY, 5).ClearContents
     ws.Cells(MAIN_ROW.sales, 5).ClearContents
     ws.Cells(MAIN_ROW.loss, 5).ClearContents
-    ws.Cells(MAIN_ROW.CURRENT_STOCK, 5).ClearContents
+    'ws.Cells(MAIN_ROW.CURRENT_STOCK, 5).ClearContents
     
     Message.ClearAll
-
+    ClearTable
     
 End Sub
 Public Function GetIndicator() As Indicator
@@ -67,4 +62,13 @@ End Sub
 Public Function GetCabinet()
     Set GetCabinet = m_Cabinet
 End Function
+
+Private Sub ClearTable()
+    Dim ws As Worksheet
+    Set ws = Worksheets("main")
+    
+    ws.Range(Cells(2, 6), Cells(7, 26)).ClearContents
+    ws.Range(Cells(16, 6), Cells(100, 26)).ClearContents
+    
+End Sub
 

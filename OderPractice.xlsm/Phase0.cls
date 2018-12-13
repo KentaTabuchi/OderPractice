@@ -23,11 +23,12 @@ Public Sub IPhase_ExecutePhase()
     Dim ws As Worksheet
     Set ws = Worksheets("main")
     ws.Cells(MAIN_ROW.CARRY_OVER_STOCK, MAIN_COLUMN.Number) = record.GetStock
+    ws.Cells(MAIN_ROW.CARRY_OVER_STOCK, MAIN_COLUMN.Price) = record.GetStock * 100
     ws.Cells(MAIN_ROW.DATE_, MAIN_COLUMN.Number) = record.GetDate
-    ws.Cells(MAIN_ROW.CURRENT_STOCK, MAIN_COLUMN.Number) = record.GetStock
-    
+    'ws.Cells(MAIN_ROW.CURRENT_STOCK, MAIN_COLUMN.Number) = record.GetStock
+    'ws.Cells(MAIN_ROW.CURRENT_STOCK, MAIN_COLUMN.Price) = record.GetStock * 100
     ws.Cells(MAIN_ROW.PRICE_CUT, MAIN_COLUMN.Number) = Main.GetCabinet.PriceCutItems
-    
+    ws.Cells(MAIN_ROW.PRICE_CUT, MAIN_COLUMN.Price) = Main.GetCabinet.PriceCutItems * -20
   
 End Sub
 
@@ -35,17 +36,21 @@ Public Sub IPhase_ChangePhase()
     Main.SetCurrentPhase (PhaseNumber.DELIVERY_1)
 End Sub
 
-'mainシートの当日の数字を消す。
+'mainシートの数字を消す。
 Private Sub RefleshTable()
         Dim ws As Worksheet
         Set ws = Worksheets("main")
         
         Dim i As Integer
+        Dim k As Integer
+        
         For i = 2 To 7
             ws.Cells(i, MAIN_COLUMN.Number).ClearContents
-        Next i
-        For i = 2 To 6
             ws.Cells(i, MAIN_COLUMN.Price).ClearContents
         Next i
-        
+        For i = 16 To 100
+            ws.Cells(i, MAIN_COLUMN.Number).ClearContents
+            ws.Cells(i, MAIN_COLUMN.Price).ClearContents
+        Next i
+    
 End Sub

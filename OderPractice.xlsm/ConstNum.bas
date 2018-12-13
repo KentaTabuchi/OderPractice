@@ -1,19 +1,15 @@
 Attribute VB_Name = "ConstNum"
 Option Explicit
 'dataシートの列定数
-Public Const COLUMN_DATE = 2
-Public Const COLUMN_DELIVERY = 3
-Public Const COLUMN_SALES = 4
-Public Const COLUMN_LOSS = 5
-Public Const COLUMN_STOCK = 6
 
 Enum DATA_COLUMN
     DATE_2 = 2
-    DELIVERY_3 = 3
-    SALES_4 = 4
-    LOSS_5 = 5
-    STOCK_6 = 6
-    ODER_7 = 7
+    DELIVERY = 3
+    sales = 4
+    loss = 5
+    priceCut = 6
+    STOCK = 7
+    Oder = 8
 End Enum
 
 'mainシートの行定数

@@ -7,6 +7,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = False
 Attribute VB_Exposed = False
+
 Option Explicit
 
 '商品棚を表すクラス。Itemnの集合を表すコレクションを内包し、納品、販売、値引き、廃棄等を行うメソッドをもつ。
@@ -69,8 +70,8 @@ Private Function DecideSales() As Integer
     Dim ws As Worksheet
     Set ws = Worksheets("data")
 
-    max = ws.Cells(4, 9)
-    min = ws.Cells(3, 9)
+    max = ws.Cells(4, 10)
+    min = ws.Cells(3, 10)
     
     Randomize
     m_salesNum = Int((max - min + 1) * Rnd + min)

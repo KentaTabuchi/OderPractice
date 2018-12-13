@@ -18,6 +18,7 @@ Private m_salesPrice As Integer
 Private m_loss As Integer
 Private m_stock As Integer
 Private m_oder As Integer
+Private m_priceCut As Integer
 
 Public Function GetDate()
     GetDate = m_date
@@ -67,5 +68,12 @@ End Function
 Public Sub SetOder(oder_ As Integer)
     m_oder = oder_
 End Sub
-    
+
+Public Function GetPriceCut() As Integer
+    GetPriceCut = m_priceCut
+End Function
+
+Public Sub SetPriceCut(priceCut_ As Integer)
+    m_priceCut = priceCut_
+End Sub
 
