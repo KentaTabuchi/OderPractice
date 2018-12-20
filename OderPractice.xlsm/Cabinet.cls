@@ -14,6 +14,7 @@ Option Explicit
 
 Private m_items As Collection
 Private m_salesNum As Integer
+Private m_salesPrice As Integer
 Private id As Integer
 
 
@@ -37,45 +38,27 @@ Public Sub DisplayItems(num As Integer)
         PrintItems
 End Sub
 
-'販売数だけ商品棚から消す
-'@return 販売数
-Public Function SellItems() As Integer
 
-    Dim i As Integer
-    Dim item_ As Item
-    For i = m_salesNum To 1 Step -1
-        Set item_ = m_items.Item(i)
-        m_items.Remove (i)
-        SellItems = SellItems + 1
-    Next i
+'当日の販売数を算出する。
+Public Function DecideSales() As Integer
+ 
+    Dim Customers As Collection
+    Dim customerNum As Integer
     
-    PrintItems
-End Function
-'当日の販売金額をカウント
-'@return 販売金額
-Public Function CountSalesPrice() As Integer
-
-    Dim i As Integer
-    Dim item_ As Item
-    For i = DecideSales To 1 Step -1
-        Set item_ = m_items.Item(i)
-        CountSalesPrice = CountSalesPrice + item_.GetPrice '販売金額を加算
-    Next i
-      
-End Function
-'当日の販売数を算出する。とりあえずランダムな値を出しているだけ。
-Private Function DecideSales() As Integer
-    Dim max As Integer
-    Dim min As Integer
-    Dim ws As Worksheet
-    Set ws = Worksheets("data")
-
-    max = ws.Cells(4, 10)
-    min = ws.Cells(3, 10)
-    
+    Const max = 10
+    Const min = 5
     Randomize
-    m_salesNum = Int((max - min + 1) * Rnd + min)
-    DecideSales = m_salesNum
+    customerNum = Int((max - min + 1) * Rnd + min)
+    m_salesPrice = 0 '毎回初期化しないと前の日の分が残ったままになる。
+    Dim decideSales_ As Integer
+    Dim i As Integer
+    For i = 0 To customerNum
+        Dim customer_ As Customer
+        Set customer_ = New Customer
+        decideSales_ = decideSales_ + customer_.BuyItems
+        m_salesPrice = m_salesPrice + customer_.GetPay '一人当たりの支払いを人数分、合計してメンバ変数に保存。
+    Next i
+    DecideSales = decideSales_
     
 End Function
 
@@ -126,15 +109,21 @@ Private Sub PrintItems()
     Dim i As Integer
     
     For i = 1 To 100
-        ws.Cells(MAIN_ROW.ITEMS + i, MAIN_COLUMN.Number).ClearContents
+        ws.Cells(MAIN_ROW.ITEMS + i, MAIN_COLUMN.number).ClearContents
     Next i
     
     Dim item_ As Item
     For i = 1 To m_items.Count
         Set item_ = m_items.Item(i)
-        ws.Cells(MAIN_ROW.ITEMS + i, MAIN_COLUMN.Number) = item_.GetLimit
+        ws.Cells(MAIN_ROW.ITEMS + i, MAIN_COLUMN.number) = item_.GetLimit
         ws.Cells(MAIN_ROW.ITEMS + i, MAIN_COLUMN.Price) = item_.GetPrice
     Next i
 End Sub
 
+Public Function GetItems() As Collection
+    Set GetItems = m_items
+End Function
+Public Function GetSalesPrice() As Integer
+    GetSalesPrice = m_salesPrice
+End Function
 
